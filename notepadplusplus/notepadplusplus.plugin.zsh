@@ -12,29 +12,6 @@ ne() {
 		variable NOTEPAD_PLUS_PLUS equal to the path of the Notepad++ executable on your system.
         return 1
 	fi
-	
-	files=
-	while [ $# -ne 0 ]
-	do
-		file=$1
 
-		if [ ! -f "${file}" ]; then
-			# The file does not exist, so create it. Create it with a newline so it starts out with
-			# Unix-style newlines.
-			>"${file}"
-			echo >> "${file}"
-		fi
-		
-		winfile=`cygpath -a -w "${file}"`
-		if echo ${file} | grep "\s" > /dev/null ; then
-			# The file has a space in it
-			winfile=`cygpath -a -ws "${file}"`
-		fi
-
-		files="${files} ${winfile}"
-
-		shift
-	done
-
-	cygstart "${NOTEPAD_PLUS_PLUS}" "${files}"
+  cygpath -a -w "$@" | tr -s '\n' '\0' | xargs --null "${NOTEPAD_PLUS_PLUS}"
 }
