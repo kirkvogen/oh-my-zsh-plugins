@@ -15,5 +15,20 @@ atom() {
     return
   fi
 
-  cygpath -a -w "$@" | tr -s '\n' '\0' | xargs --null "$LOCALAPPDATA/atom/bin/atom"
+  # Separate flags from file arguments
+  while getopts ":?" opt; do
+    case $opt in
+      \?)
+        if [ -z $flags ]; then
+          local flags="-$OPTARG"
+        else
+          local flags="$flags -$OPTARG"
+        fi
+        ;;
+    esac
+  done
+
+  shift $(($OPTIND - 1))
+
+  cygpath -a -w "$@" | tr -s '\n' '\0' | xargs --null "$LOCALAPPDATA/atom/bin/atom" "$flags"
 }
