@@ -3,7 +3,7 @@
 # Other ones to consider: -2 -- prints two pages per sheet
 #                         -M Tabloid -- prints on 11 x 17 paper
 #                                       (but you need to have the following
-#                                        entry in your /etc/enscript.cfg file:
+#                                        entry in your ~/.enscriptrc file:
 # Media:	Tabloid		792	1224	18	36	774	1188
 #
 export ENSCRIPT="-E -M Letter -f DejaVuSansMono8 -F DejaVuSansMono-Bold8 -DDuplex:true -j -v --lines-per-page=120 '--header=\$D{%a %b %d %H:%M:%S %Y}|\$n|Page \$V\$% of \$='"
