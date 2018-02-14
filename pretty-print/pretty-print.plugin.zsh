@@ -55,15 +55,15 @@ pdf()
 	rm "$postscript_file"
 	
 	if which cygstart >& /dev/null; then
-		# The wait actually doesn't work with this command. To get the wait to work, the Acrobat
-		# Reader executable would need to be called directly.
-		cygstart --wait "$pdf_file"
+		win_pdf_file=$(cygpath -a -w "$pdf_file")
+		cmd /c "$win_pdf_file"
 	elif which xdg-open >& /dev/null; then
 		xdg-open "$pdf_file"
 	else
 		echo -e "Generated PDF: $pdf_file"
 		return
 	fi
+
 
 	(sleep 10 && while [ true ]; do if rm "$pdf_file"; then break; else sleep 5; fi; done;) &
 }
