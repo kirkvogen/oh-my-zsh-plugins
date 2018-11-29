@@ -1,3 +1,7 @@
+# Unalias open in case it is already defined. It seems that Babun may be defining the 'open' alias
+# to the cygstart utility.
+unalias open 2>/dev/null
+
 #
 # Opens a file or folder. Typically, the argument is a folder, so this function will be useful for
 # opening the OS's file explorer.
